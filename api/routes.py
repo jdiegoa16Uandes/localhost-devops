@@ -47,4 +47,11 @@ def register_routes(app):
         app.logger.info(f"validación del token satisfactoria, retornando valores...")
         return BlacklistService.check_blacklist(email)
 
+    @app.route('/ping', methods=['GET'])
+    def ping():
+        try:
+            return jsonify({"status": "El servicio esta activo"}), 200
+        except Exception as e:
+            return jsonify({"error": "Ha ocurrido un error consultando el estado de salud del servicio", "details": str(e)}), 500
+
 
