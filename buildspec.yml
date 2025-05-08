@@ -5,14 +5,34 @@ phases:
     commands:
       - echo "Iniciando la instalación de dependencias..."
       - pip install -r requirements.txt
+      - echo "Iniciando sesion en acr..."
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 590183899483.dkr.ecr.us-east-1.amazonaws.com
+  build:
+    commands:
       - echo "Inicia ejecución de pruebas unitarias"
       - python3 -m unittest discover -s test
-  
+      - echo "construccion de imagen"
+      - docker build -t localhost-repository .
+      - docker tag localhost-repository:latest 590183899483.dkr.ecr.us-east-1.amazonaws.com/localhost-repository:latest
   post_build:
     commands:
-      - echo "Construcción completada con éxito!"
+      - echo "enviando imagen"
+      - docker push 590183899483.dkr.ecr.us-east-1.amazonaws.com/localhost-repository:latest
+      - echo "definicion de imagen"
+      - printf '[{"name":"localhost-app-container","imageUri":"590183899483.dkr.ecr.us-east-1.amazonaws.com/localhost-repository"}]' > imagedefinitions.json
+      - printf '{"ImageURI":"590183899483.dkr.ecr.us-east-1.amazonaws.com/localhost-repository"}' > imageDetail.json
+      - cat imagedefinitions.json 
       
 artifacts:
   files:
-    - echo "Construcción en progreso..."
     - '**/*'
+    - imagedefinitions.json
+    - imageDetail.json
+  secondary-artifacts:
+    DefinitionArtifact:
+      files:
+        - appspec.yaml
+        - taskdef.json
+    ImageArtifact:
+      files:
+        - imageDetail.json
