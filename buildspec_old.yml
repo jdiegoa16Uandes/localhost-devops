@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo "Iniciando la instalación de dependencias..."
+      - pip install -r requirements.txt
+      - echo "Inicia ejecución de pruebas unitarias"
+      - python3 -m unittest discover -s test
+  
+  post_build:
+    commands:
+      - echo "Construcción completada con éxito!"
+      
+artifacts:
+  files:
+    - echo "Construcción en progreso..."
+    - '**/*'
