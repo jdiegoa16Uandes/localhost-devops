@@ -31,7 +31,7 @@ phases:
           docker push 590183899483.dkr.ecr.us-east-1.amazonaws.com/localhost-repository:latest
           
           echo "Escribiendo el archivo de definición de la imagen..."
-          printf '[{"name":"container-localhost-app","imageUri":"590183899483.dkr.ecr.us-east-1.amazonaws.com/localhost-repository:latest"}]' > imageDefinitions.json
+          printf '[{"name":"localhost-app-container","imageUri":"590183899483.dkr.ecr.us-east-1.amazonaws.com/localhost-repository"}]' > imageDefinitions.json
                                                                  
           printf '{"ImageURI":"590183899483.dkr.ecr.us-east-1.amazonaws.com/localhost-repository:latest"}' > imageDetail.json
 
