@@ -25,7 +25,11 @@
                 {
                     "name": "DATABASE_URL",
                     "value": "postgresql://localhostdb:l0c4lh0stdb@localhost-db.cytaccqwccl7.us-east-1.rds.amazonaws.com:5432/postgres"
-                }
+                },
+                {
+                  "name": "NEW_RELIC_LICENSE_KEY",
+                  "value": "114355c7c3777cc23c8c5707f3db736bFFFFNRAL"
+              }
             ]
       }
     ],

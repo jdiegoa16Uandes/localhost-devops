@@ -6,6 +6,7 @@ services:
     environment:
       - FLASK_APP=application.py
       - FLASK_DEBUG=1
+      - NEW_RELIC_LICENSE_KEY=114355c7c3777cc23c8c5707f3db736bFFFFNRAL
     env_file:
       - .env 
     depends_on:
